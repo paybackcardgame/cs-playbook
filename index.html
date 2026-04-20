@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payback · Customer Support Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f7f5f0; --surface: #ffffff; --surface2: #f0ede6;
+    --text: #1c1916; --text2: #5c5650; --text3: #9c9690;
+    --accent: #d94f1e; --accent-light: #fdf0eb;
+    --blue: #1e3d6b; --blue-light: #eaf0f8;
+    --green: #2d6040; --green-light: #eaf3ee;
+    --amber: #8a5500; --amber-light: #fdf3e0;
+    --purple: #4a2d7a; --purple-light: #f0ebfa;
+    --border: rgba(28,25,22,0.1); --border2: rgba(28,25,22,0.18);
+    --shadow-sm: 0 1px 3px rgba(28,25,22,0.08), 0 1px 2px rgba(28,25,22,0.04);
+    --shadow: 0 4px 16px rgba(28,25,22,0.08), 0 1px 4px rgba(28,25,22,0.05);
+    --radius: 10px; --radius-lg: 14px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.6; min-height: 100vh; }
+  .header { background: var(--text); color: #fff; padding: 2.5rem 2rem 2rem; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -40px; right: -40px; width: 220px; height: 220px; background: var(--accent); border-radius: 50%; opacity: 0.12; }
+  .header::after { content: ''; position: absolute; bottom: -60px; left: 30%; width: 160px; height: 160px; background: var(--accent); border-radius: 50%; opacity: 0.07; }
+  .header-inner { max-width: 960px; margin: 0 auto; position: relative; z-index: 1; }
+  .header-eyebrow { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .header-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--accent); }
+  .header h1 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; font-weight: 400; line-height: 1.15; color: #fff; margin-bottom: 10px; }
+  .header-sub { font-size: 14px; color: rgba(255,255,255,0.5); font-weight: 300; }
+  .header-badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1.25rem; }
+  .badge { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 500; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.7); }
+  .tabs-nav { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
+  .tabs-inner { max-width: 960px; margin: 0 auto; padding: 0 2rem; display: flex; overflow-x: auto; }
+  .tab-btn { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; padding: 1rem 1.1rem; border: none; background: transparent; color: var(--text3); cursor: pointer; border-bottom: 2.5px solid transparent; transition: all 0.18s; white-space: nowrap; flex-shrink: 0; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .content { max-width: 960px; margin: 0 auto; padding: 2rem 2rem 4rem; }
+  .section { display: none; animation: fadeIn 0.2s ease; }
+  .section.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .section-intro { font-size: 14px; color: var(--text2); line-height: 1.7; margin-bottom: 1.75rem; padding-bottom: 1.75rem; border-bottom: 1px solid var(--border); }
+  .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 600px) { .voice-grid { grid-template-columns: 1fr; } }
+  .voice-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--shadow-sm); }
+  .voice-card-full { grid-column: 1 / -1; }
+  .vc-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .vc-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .vc-label.good { color: var(--green); } .vc-label.good::before { background: var(--green); }
+  .vc-label.bad { color: var(--accent); } .vc-label.bad::before { background: var(--accent); }
+  .vc-label.neutral { color: var(--blue); } .vc-label.neutral::before { background: var(--blue); }
+  .vc-ex { font-size: 13px; color: var(--text2); font-style: italic; line-height: 1.55; margin-bottom: 6px; }
+  .vc-ex:last-child { margin-bottom: 0; }
+  .vc-ex strong { font-style: normal; font-weight: 500; color: var(--text); }
+  .scenario { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 10px; box-shadow: var(--shadow-sm); overflow: hidden; transition: box-shadow 0.18s; }
+  .scenario:hover { box-shadow: var(--shadow); }
+  .sc-head { display: flex; align-items: center; gap: 12px; padding: 1.1rem 1.25rem; cursor: pointer; user-select: none; transition: background 0.15s; }
+  .sc-head:hover { background: var(--surface2); }
+  .sc-indicator { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sc-title { font-size: 14px; font-weight: 500; color: var(--text); flex: 1; }
+  .sc-tag { font-size: 10px; padding: 3px 9px; border-radius: 20px; font-weight: 600; letter-spacing: 0.03em; white-space: nowrap; }
+  .sc-chevron { font-size: 11px; color: var(--text3); transition: transform 0.22s; flex-shrink: 0; }
+  .sc-chevron.open { transform: rotate(180deg); }
+  .sc-body { display: none; padding: 0 1.25rem 1.25rem; border-top: 1px solid var(--border); }
+  .sc-body.open { display: block; }
+  .steps-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin: 1rem 0 0.6rem; }
+  .step-list { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-bottom: 1rem; }
+  .step-list li { font-size: 13px; color: var(--text2); line-height: 1.55; padding-left: 18px; position: relative; }
+  .step-list li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--border2); }
+  .template-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 7px; }
+  .template-box { background: var(--surface2); border-radius: var(--radius); padding: 14px 16px; border-left: 3px solid var(--border2); margin-bottom: 10px; }
+  .template-text { font-size: 13px; color: var(--text); line-height: 1.65; white-space: pre-wrap; }
+  .callout { margin-top: 10px; font-size: 12px; color: var(--blue); background: var(--blue-light); padding: 8px 12px; border-radius: 8px; border-left: 3px solid #5a9fd4; line-height: 1.5; }
+  .escalate { margin-top: 10px; font-size: 12px; color: var(--amber); background: var(--amber-light); padding: 8px 12px; border-radius: 8px; border-left: 3px solid #e0a040; line-height: 1.5; }
+  .updated-badge { font-size: 9px; padding: 2px 6px; border-radius: 20px; background: var(--green-light); color: var(--green); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; margin-left: 4px; }
+  .new-badge { font-size: 9px; padding: 2px 6px; border-radius: 20px; background: var(--accent-light); color: var(--accent); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: middle; margin-left: 4px; }
+  .rules-intro { font-size: 14px; color: var(--text2); margin-bottom: 1.25rem; line-height: 1.65; }
+  .rule-item { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 10px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow-sm); }
+  .rule-num { width: 26px; height: 26px; border-radius: 50%; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--text2); flex-shrink: 0; margin-top: 1px; }
+  .rule-text { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .rule-text strong { font-weight: 500; color: var(--text); display: block; margin-bottom: 2px; }
+  .escalation-box { margin-top: 1.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; box-shadow: var(--shadow-sm); }
+  .escalation-box h3 { font-size: 13px; font-weight: 600; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px; }
+  .escalation-box h3::before { content: '!'; width: 18px; height: 18px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  /* OPERATIONS */
+  .ops-section { margin-bottom: 2.5rem; }
+  .ops-heading { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
+  .ops-heading::before { content: ''; width: 3px; height: 16px; background: var(--accent); border-radius: 2px; display: inline-block; }
+  .ops-sub { font-size: 13px; color: var(--text2); margin-bottom: 1rem; line-height: 1.6; }
+  .tbl-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow-sm); margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--surface); font-size: 13px; }
+  thead { background: var(--text); }
+  th { padding: 10px 14px; text-align: left; font-weight: 500; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; white-space: nowrap; color: #fff; }
+  td { padding: 10px 14px; border-top: 1px solid var(--border); color: var(--text2); line-height: 1.45; vertical-align: top; }
+  tr:hover td { background: var(--surface2); }
+  .sku-code { font-family: 'Courier New', monospace; font-size: 11.5px; color: var(--text); font-weight: 600; background: var(--surface2); padding: 2px 6px; border-radius: 4px; white-space: nowrap; }
+  .hub-cd { display: inline-block; background: #eaf0f8; color: #1e3d6b; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .hub-amz { display: inline-block; background: #fff3e0; color: #8a4500; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .type-deck { display: inline-block; background: var(--accent-light); color: var(--accent); padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .type-exp { display: inline-block; background: var(--purple-light); color: var(--purple); padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .type-acc { display: inline-block; background: var(--green-light); color: var(--green); padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .type-bun { display: inline-block; background: var(--amber-light); color: var(--amber); padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  td.hl { color: var(--text); font-weight: 500; }
+  .tbl-note { font-size: 12px; color: var(--text3); margin-top: 6px; font-style: italic; }
+  .ops-steps { list-style: none; counter-reset: c; display: flex; flex-direction: column; gap: 8px; }
+  .ops-steps li { display: flex; gap: 12px; align-items: flex-start; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; box-shadow: var(--shadow-sm); font-size: 13px; color: var(--text2); line-height: 1.55; counter-increment: c; }
+  .ops-steps li::before { content: counter(c); width: 22px; height: 22px; border-radius: 50%; background: var(--text); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; flex-shrink: 0; margin-top: 1px; }
+  .ops-steps li strong { font-weight: 500; color: var(--text); }
+  .ops-steps li code { font-family: 'Courier New', monospace; font-size: 11.5px; background: var(--surface2); padding: 1px 5px; border-radius: 4px; color: var(--text); }
+  .ops-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--shadow-sm); margin-top: 1rem; }
+  .ops-card-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+  .footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-eyebrow">Great Guy Games</div>
+    <h1>Customer Support Playbook</h1>
+    <p class="header-sub">For your VA &middot; Built from Karel's actual email patterns &middot; v3</p>
+    <div class="header-badges">
+      <span class="badge">7 scenarios</span>
+      <span class="badge">12 SKUs</span>
+      <span class="badge">2 fulfillment hubs</span>
+      <span class="badge">10 core rules</span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs-nav">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab('voice',this)">Voice &amp; style</button>
+    <button class="tab-btn" onclick="switchTab('scenarios',this)">Scenarios &amp; templates</button>
+    <button class="tab-btn" onclick="switchTab('ops',this)">SKUs &amp; fulfillment</button>
+    <button class="tab-btn" onclick="switchTab('rules',this)">Rules &amp; escalation</button>
+    <button class="tab-btn" onclick="switchTab('logins',this)">Links &amp; logins</button>
+  </div>
+</nav>
+
+<main class="content">
+
+<!-- VOICE -->
+<div class="section active" id="tab-voice">
+  <p class="section-intro">Karel's replies are warm, direct, and fast. The issue gets acknowledged first, then a clear action or choice follows. Never formal, never corporate. Match this energy exactly.</p>
+  <div class="voice-grid">
+    <div class="voice-card">
+      <div class="vc-label good">DO say</div>
+      <div class="vc-ex">"Hey [Name], apologies for the trouble..."</div>
+      <div class="vc-ex">"You have two options: 1. ... 2. ..."</div>
+      <div class="vc-ex">"I'll take care of it right away."</div>
+      <div class="vc-ex">"Thanks for your patience!"</div>
+      <div class="vc-ex">"I totally get it — that's fair feedback."</div>
+    </div>
+    <div class="voice-card">
+      <div class="vc-label bad">DON'T say</div>
+      <div class="vc-ex">"Dear valued customer..."</div>
+      <div class="vc-ex">"We sincerely apologize for any inconvenience..."</div>
+      <div class="vc-ex">"Please be advised that..."</div>
+      <div class="vc-ex">"Your ticket has been received and will be processed..."</div>
+      <div class="vc-ex">"I understand your frustration." (too hollow)</div>
+    </div>
+    <div class="voice-card voice-card-full">
+      <div class="vc-label neutral">Signature format</div>
+      <div class="vc-ex">Always close with:<br><br><strong>Best,<br><br>[Your name] from Payback.</strong></div>
+    </div>
+    <div class="voice-card voice-card-full">
+      <div class="vc-label neutral">Reply speed rule</div>
+      <div class="vc-ex">Same day whenever possible. If you need to investigate first, send a brief acknowledgment: <strong>"Hey [Name], got your message — I'm looking into this now and will get back to you shortly."</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<div class="section" id="tab-scenarios">
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#1e3d6b;"></div>
+      <span class="sc-title">Shipping timeline question</span>
+      <span class="sc-tag" style="background:#eaf0f8;color:#1e3d6b;">Most common</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Check whether it's a US order (Amazon FBA for Original Base only) or international (ChinaDivision). See the SKUs &amp; Fulfillment tab.</li>
+        <li>US via Amazon FBA: 3-5 business days once synced.</li>
+        <li>ChinaDivision international: 10-20 business days.</li>
+        <li>Include tracking number if available.</li>
+      </ul>
+      <div class="template-label">Template</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Thanks for reaching out! Your order is [processing / on its way].
+
+[US orders]: Once shipped, you can expect delivery within 3-5 business days. You'll receive a tracking email once it's on its way.
+
+[International]: International orders typically take 10-20 business days. We'll send tracking info as soon as your package is dispatched.
+
+Thanks for your patience — really appreciate it!
+
+Best,
+[Your name] from Payback.</div></div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#d94f1e;"></div>
+      <span class="sc-title">Order not received / never arrived <span class="updated-badge">updated</span></span>
+      <span class="sc-tag" style="background:#fdf0eb;color:#d94f1e;">Needs investigation</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Check if they completed the Hive pledge manager (Kickstarter backers only).</li>
+        <li>Look up their order in Shopify by order number. See SKUs &amp; Fulfillment tab for how to find orders in CD.</li>
+        <li>Kickstarter backer, no survey filled: re-open their pledge and send a Hive invite.</li>
+        <li>If shipped but lost: contact ChinaDivision to file a loss claim. Offer resend or refund.</li>
+      </ul>
+      <div class="template-label">Template — Kickstarter backer, no survey filled</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Thanks for reaching out. It looks like your shipping survey wasn't completed — no worries at all!
+
+I've re-opened your pledge and sent a Hive invite to [email]. You'll be able to fill in your shipping address there.
+
+You can also log in directly at: https://www.hiveinteractive.net/pledgemanager
+
+Important: once you've completed it, please reply to this email to let us know — we process Hive orders manually and your heads-up is what kicks off the shipment.
+
+Let me know if you run into any trouble!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="callout">Once the customer replies confirming they completed Hive, forward to Karel immediately. He processes Hive orders manually. Do not tell the customer their order has shipped until Karel confirms it.</div>
+      <div class="template-label" style="margin-top:12px;">Template — Shipped but lost/stolen</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+I'm really sorry to hear that — that's super frustrating and definitely not okay.
+
+I've looked into your order and it appears the package may have been lost in transit. I'm filing a claim with our shipping partner.
+
+In the meantime, I'd like to make this right: I can either send you a replacement or issue a full refund — whichever you prefer. Just let me know and I'll get it sorted immediately.
+
+Sorry again for the hassle!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="escalate">Escalate to Karel if: the claim with ChinaDivision is denied, the order value is over $50, or the customer is threatening a chargeback.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#c04010;"></div>
+      <span class="sc-title">Package marked delivered — customer didn't get it <span class="new-badge">new</span></span>
+      <span class="sc-tag" style="background:#fdf0eb;color:#c04010;">Handle carefully</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>CC <strong>Sunny@chinadivision.com</strong> immediately when replying — they need to be in the loop from the start.</li>
+        <li>Share the ChinaDivision tracking link. Use the exact phrase: <em>"it seems it was delivered on [date]."</em> Say "it seems" — not "it was."</li>
+        <li>Ask customer to check their <strong>spam folder</strong> for any email from ChinaDivision.</li>
+        <li>Ask customer to <strong>check with neighbors</strong> — packages are sometimes picked up as a courtesy.</li>
+        <li>Ask ChinaDivision (CC Sunny) for the <strong>carrier's delivery photo</strong> if one exists.</li>
+        <li>Share that photo with the customer. It helps identify where the package was left.</li>
+        <li>No photo + no neighbor + carrier confirms no Proof of Delivery = package effectively lost.</li>
+        <li>Offer to resend. Customer pays shipping only: <strong>$10 USD via PayPal (friends &amp; family) to paybackcardgame@gmail.com</strong>.</li>
+        <li>Once payment confirmed, notify Karel — he arranges the resend.</li>
+      </ul>
+      <div class="template-label">Template — First reply (CC Sunny@chinadivision.com)</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+I'm so sorry to hear that — I know how frustrating this must be, especially when the tracking shows it as delivered.
+
+It seems it was delivered on [date] according to our shipping partner's tracking. Here's the tracking link: [tracking link]
+
+A few things that would help us investigate:
+
+1. Could you check your spam folder for any email from ChinaDivision? They sometimes send delivery notifications that get filtered.
+2. Could you check with your neighbors? Sometimes packages are picked up as a courtesy and forgotten.
+
+I'm also reaching out to our shipping partner to get the carrier's delivery photo if one exists — I'll share it with you as soon as I have it.
+
+Thank you for your patience!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="template-label" style="margin-top:12px;">Template — Sharing carrier delivery photo</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Our shipping partner just sent over the photo taken by the carrier at the time of delivery. I've attached it here.
+
+[attach photo]
+
+Does this look like your address? Sometimes it helps identify where the package was left — porch, mailbox, front door, etc.
+
+Let us know what you find!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="template-label" style="margin-top:12px;">Template — Offering resend after investigation</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Thank you for checking with your neighbors and looking into this — I really appreciate it.
+
+Unfortunately, since the carrier has marked the package as delivered and we weren't able to locate it, we aren't able to file a successful claim. However, I'd like to make this right.
+
+I'm happy to send you a replacement — all we'd ask is that you cover the cost of shipping, which is $10 USD.
+
+You can send the $10 via PayPal (friends &amp; family) to: paybackcardgame@gmail.com
+
+Once received, I'll get your replacement out as soon as possible!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="escalate">USPS in the US doesn't always provide a delivery photo. If ChinaDivision confirms no photo is available, skip straight to the resend offer. Escalate to Karel if the customer refuses to pay shipping and pushes for a free replacement.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#8a5500;"></div>
+      <span class="sc-title">Out of stock / order on hold</span>
+      <span class="sc-tag" style="background:#fdf3e0;color:#8a5500;">International mostly</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Happens when international inventory runs out but the site kept accepting orders.</li>
+        <li>Always offer two options: full refund or wait for restock.</li>
+        <li>Check with Karel for current restock ETA before sending. Don't guess a date.</li>
+      </ul>
+      <div class="template-label">Template</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Apologies for the trouble. We ran out of stock for international orders, and our website continued accepting orders in error — that's on us, and I'm sorry.
+
+Your order is currently on hold. You have two options:
+
+1. Full refund, processed immediately.
+2. Wait for our restock (arriving in approximately [X] days) and receive your order within the month.
+
+Just let me know which you'd prefer and I'll take care of it right away.
+
+Sorry again, and thanks so much for your patience!
+
+Best,
+[Your name] from Payback.</div></div>
+      <div class="escalate">Always confirm the restock ETA with Karel before sending. Never promise a date you're not sure about.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#d94f1e;"></div>
+      <span class="sc-title">Customer upset about shipping cost</span>
+      <span class="sc-tag" style="background:#fdf0eb;color:#d94f1e;">Handle with care</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Don't get defensive. Acknowledge the frustration first — it's totally fair feedback.</li>
+        <li>Explain it's standard Kickstarter practice — shipping is almost always handled separately on campaigns.</li>
+        <li>Point out it was disclosed upfront: mentioned on every reward tier description and in the shipping section of the campaign.</li>
+        <li>Explain the fairness reason: shipping costs vary significantly by location and fluctuate over time — a flat rate bundled into the pledge would either overcharge some backers or leave us covering the difference on others.</li>
+        <li>Close warmly — their backing is appreciated and we want them to feel good about it.</li>
+        <li>If they want to cancel, say yes immediately. No pushback.</li>
+      </ul>
+      <div class="template-label">Template</div>
+      <div class="template-box"><div class="template-text">Hi [Name],
+
+I understand why it can feel pricey. That's totally fair feedback and I appreciate you sharing it.
+
+Shipping costs on Kickstarter campaigns are almost always handled separately, and we did our best to be upfront about it — it's mentioned directly on every reward tier description and in the shipping section of the campaign.
+
+We know it's not the most convenient setup, but the reason we do it this way is that shipping costs vary significantly by location and fluctuate over time, so we can't lock in an accurate number until closer to the ship date. Bundling a flat shipping estimate into the pledge price would either overcharge some backers or leave us covering the difference on others.
+
+Your backing is genuinely appreciated, and we want to make sure you feel good about it.
+
+If you'd like to proceed, the shipping cost is [X]. If you'd rather cancel, I'm happy to issue a full refund with no questions asked — just let me know.
+
+Best,
+[Your name] from Payback.</div></div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#4a2d7a;"></div>
+      <span class="sc-title">Can't find account / wrong email</span>
+      <span class="sc-tag" style="background:#f0ebfa;color:#4a2d7a;">Quick fix</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Check their email in Hive pledge manager and Shopify admin.</li>
+        <li>If not found, ask what email they used to back on Kickstarter.</li>
+        <li>Once found, re-send the Hive invite or locate their order manually.</li>
+      </ul>
+      <div class="template-label">Template</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Thanks for reaching out! I couldn't find your name or email in our records. Could you let me know what email address you used when you backed on Kickstarter?
+
+Once I have that I'll look you up and get things sorted right away.
+
+Best,
+[Your name] from Payback.</div></div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="sc-head" onclick="toggle(this)">
+      <div class="sc-indicator" style="background:#2d6040;"></div>
+      <span class="sc-title">Wrong / returned address</span>
+      <span class="sc-tag" style="background:#eaf3ee;color:#2d6040;">Coordinate with fulfillment</span>
+      <span class="sc-chevron">&#9660;</span>
+    </div>
+    <div class="sc-body">
+      <div class="steps-label">Steps</div>
+      <ul class="step-list">
+        <li>Email the customer to confirm correct address.</li>
+        <li>Once confirmed, forward to ChinaDivision: am2@chinadivision.com, CC dm9@chinadivision.com.</li>
+        <li>Format: Name / Address / City / State / Zip / Country / Phone.</li>
+        <li>Always verify the zip code on Google Maps if it looks off.</li>
+      </ul>
+      <div class="template-label">Template — to customer</div>
+      <div class="template-box"><div class="template-text">Hey [Name],
+
+Our shipping partner flagged a potential issue with your delivery address. Could you confirm the following for me?
+
+- Street address:
+- City:
+- State/Province:
+- Zip/Postal code:
+- Country:
+- Phone number:
+
+Once I have that confirmed I'll get your package on its way!
+
+Best,
+[Your name] from Payback.</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- OPERATIONS -->
+<div class="section" id="tab-ops">
+
+  <div class="ops-section">
+    <div class="ops-heading">All SKUs</div>
+    <p class="ops-sub">Every product in the Payback lineup. Use SKU codes exactly as shown when communicating with ChinaDivision or Shopify — any variation is treated as a different product.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>SKU code</th><th>Full product name</th><th>Type</th><th>Contents</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sku-code">PBK-ED-BASE-V2-58C</span></td><td class="hl">Original Base Edition V2</td><td><span class="type-deck">Main Deck</span></td><td>58 cards — current retail &amp; Amazon version</td></tr>
+          <tr><td><span class="sku-code">PBK-ED-KS-58C</span></td><td class="hl">Original Edition (Kickstarter)</td><td><span class="type-deck">Main Deck</span></td><td>58 cards — Kickstarter backer version, different UPC</td></tr>
+          <tr><td><span class="sku-code">PBK-ED-DGN-58C</span></td><td class="hl">Degen Edition</td><td><span class="type-deck">Main Deck</span></td><td>58 cards — adult humour variant</td></tr>
+          <tr><td><span class="sku-code">PBK-ED-GLD-58C</span></td><td class="hl">Gold Edition</td><td><span class="type-deck">Main Deck</span></td><td>58 cards — premium foil variant</td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-WIZ-12C</span></td><td class="hl">Dark Wizard Expansion</td><td><span class="type-exp">Expansion</span></td><td>12 cards — adds to any edition</td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-NSFW-12C</span></td><td class="hl">NSFW Spell Expansion</td><td><span class="type-exp">Expansion</span></td><td>12 cards — adult-only expansion</td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-MYS-12C</span></td><td class="hl">Mystery Expansion</td><td><span class="type-exp">Expansion</span></td><td>12 cards — mystery/surprise variant</td></tr>
+          <tr><td><span class="sku-code">PBK-MAT-STD-1PC</span></td><td class="hl">Pro Player Mat</td><td><span class="type-acc">Accessory</span></td><td>1 standard-size neoprene playmat</td></tr>
+          <tr><td><span class="sku-code">PBK-BF2PACK-BASE</span></td><td class="hl">2-Pack Original Base Bundle</td><td><span class="type-bun">Bundle</span></td><td>2x PBK-ED-BASE-V2-58C</td></tr>
+          <tr><td><span class="sku-code">PBK-BF3PACK-BASE</span></td><td class="hl">3-Pack Original Base Bundle</td><td><span class="type-bun">Bundle</span></td><td>3x PBK-ED-BASE-V2-58C</td></tr>
+          <tr><td><span class="sku-code">PBK-BF3FOR2-BASE</span></td><td class="hl">3-for-2 Original Base Bundle</td><td><span class="type-bun">Bundle</span></td><td>3x PBK-ED-BASE-V2-58C at 2-deck price</td></tr>
+          <tr><td><span class="sku-code">PBK-BF6PACK-BASE</span></td><td class="hl">6-Pack Original Base Bundle</td><td><span class="type-bun">Bundle</span></td><td>6x PBK-ED-BASE-V2-58C</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">UPC 860014194993 = PBK-ED-BASE-V2-58C (retail) &nbsp;&middot;&nbsp; UPC 860014194986 = PBK-ED-KS-58C (Kickstarter)</p>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">Which hub fulfills which SKU</div>
+    <p class="ops-sub">There are only <strong>two fulfillment hubs</strong>. Amazon MCF handles <strong>one SKU for US orders only</strong>. ChinaDivision (CD) handles everything else — all international, and all non-base US orders.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>SKU</th><th>Product</th><th>US fulfillment</th><th>International fulfillment</th></tr></thead>
+        <tbody>
+          <tr style="background:#fffbf5;"><td><span class="sku-code">PBK-ED-BASE-V2-58C</span></td><td class="hl">Original Base Edition V2</td><td><span class="hub-amz">Amazon MCF</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-ED-KS-58C</span></td><td>Original Edition (KS)</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-ED-DGN-58C</span></td><td>Degen Edition</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-ED-GLD-58C</span></td><td>Gold Edition</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-WIZ-12C</span></td><td>Dark Wizard Expansion</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-NSFW-12C</span></td><td>NSFW Spell Expansion</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-EXP-MYS-12C</span></td><td>Mystery Expansion</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-MAT-STD-1PC</span></td><td>Pro Player Mat</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-BF2PACK-BASE</span></td><td>2-Pack Bundle</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-BF3PACK-BASE</span></td><td>3-Pack Bundle</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-BF3FOR2-BASE</span></td><td>3-for-2 Bundle</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+          <tr><td><span class="sku-code">PBK-BF6PACK-BASE</span></td><td>6-Pack Bundle</td><td><span class="hub-cd">ChinaDivision</span></td><td><span class="hub-cd">ChinaDivision</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tbl-note">Simple rule: if the order contains anything other than PBK-ED-BASE-V2-58C, or if the destination is outside the US &rarr; it's ChinaDivision.</p>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">How to find an order on ChinaDivision</div>
+    <p class="ops-sub">Orders on CD are searched by <strong>order number, not customer name</strong>. You need the Shopify order # (e.g. #1311). Always have this before contacting CD.</p>
+    <ol class="ops-steps">
+      <li>Get the <strong>Shopify order number</strong> from the customer's email or from Shopify admin. It looks like <code>#1311</code> or <code>#1736</code>. This is what CD uses as the reference.</li>
+      <li>Log in to the <strong>ChinaDivision user center</strong> at <code>chinadivision.com</code> &rarr; User Center (account ID: <code>14490</code>).</li>
+      <li>In the order list, <strong>search by order number</strong>. CD's system maps to the Shopify # from the uploaded order sheet — not the customer's name.</li>
+      <li>If you can't find it in active orders, also check <strong>Cancelled, Approved, and Completed</strong> tabs — orders move between statuses.</li>
+      <li>If still not found, email <strong>am2@chinadivision.com</strong> (CC dm9@chinadivision.com) with the order number and the words "Account 14490" in the subject.</li>
+    </ol>
+    <div class="ops-card">
+      <div class="ops-card-title">Two types of order numbers — don't confuse them</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;">
+        <strong style="color:var(--text);">Shopify # (e.g. #1311)</strong> — use this everywhere. It's what you see in Shopify, what CD references, and what the customer may quote to you.<br><br>
+        <strong style="color:var(--text);">CD system number (e.g. 489760)</strong> — CD's internal number. Sometimes appears in their emails. You can use either, but the Shopify # is more reliable.
+      </div>
+    </div>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">How to check inventory on ChinaDivision</div>
+    <p class="ops-sub">Before promising any resend or telling a customer a product is available, check live CD inventory. Do not rely on memory — stock levels change frequently.</p>
+    <ol class="ops-steps">
+      <li>Log in to <strong>ChinaDivision user center</strong> at <code>chinadivision.com</code> (account ID: <code>14490</code>).</li>
+      <li>Go to the <strong>Inventory / Warehouse</strong> section (sometimes called "Stock").</li>
+      <li>Look up the <strong>exact SKU code</strong> from the SKU table above. Even one character difference is treated as a different product.</li>
+      <li>If a SKU shows <strong>0 or insufficient stock</strong>, do not promise that product. Flag to Karel immediately — he needs to know when stock runs low.</li>
+      <li>Can't access the user center? Email <strong>am3@chinadivision.com</strong> (CC dm9@chinadivision.com): <em>"Can you confirm current inventory for SKU [SKU code]? Account 14490."</em></li>
+    </ol>
+    <div class="callout" style="margin-top:1rem;">The most frequently out-of-stock SKU has been <span class="sku-code" style="background:#d4e8f5;">PBK-ED-KS-58C</span> (Kickstarter edition). Always double-check this one before confirming Kickstarter backer resends.</div>
+  </div>
+
+</div>
+
+<!-- RULES -->
+<div class="section" id="tab-rules">
+  <p class="rules-intro">Ten non-negotiable rules. When in doubt, ask Karel — always better to over-escalate than to promise something you can't deliver.</p>
+  <div class="rule-item"><div class="rule-num">1</div><div class="rule-text"><strong>Always use the customer's first name.</strong> Never "Dear customer" or "Hi there." Find the name in the original email.</div></div>
+  <div class="rule-item"><div class="rule-num">2</div><div class="rule-text"><strong>Acknowledge before fixing.</strong> The first sentence of every reply should recognize their issue — not jump to the solution.</div></div>
+  <div class="rule-item"><div class="rule-num">3</div><div class="rule-text"><strong>Never make up a timeline or date.</strong> Check with Karel first. A broken promise hurts more than a delayed reply.</div></div>
+  <div class="rule-item"><div class="rule-num">4</div><div class="rule-text"><strong>Refunds are always available, no pushback.</strong> If a customer wants a refund, say yes and loop in Karel to process it. Never try to talk them out of it.</div></div>
+  <div class="rule-item"><div class="rule-num">5</div><div class="rule-text"><strong>Hive orders are processed manually by Karel.</strong> Never tell a customer their order has shipped until Karel explicitly confirms it. The moment a customer replies that they've completed Hive — forward to Karel immediately.</div></div>
+  <div class="rule-item"><div class="rule-num">6</div><div class="rule-text"><strong>Delivered-but-not-received: CC Sunny from the start.</strong> CC Sunny@chinadivision.com on your first reply. Use "it seems it was delivered on [date]" — not "it was delivered."</div></div>
+  <div class="rule-item"><div class="rule-num">7</div><div class="rule-text"><strong>ChinaDivision for all international orders.</strong> Any fulfillment issue goes through am2@chinadivision.com — always CC dm9@chinadivision.com and Sunny@chinadivision.com.</div></div>
+  <div class="rule-item"><div class="rule-num">8</div><div class="rule-text"><strong>Resend cost is $10 USD.</strong> For lost packages where we can't file a claim, customer pays $10 for shipping. PayPal (friends &amp; family) to paybackcardgame@gmail.com. Confirm payment before flagging to Karel.</div></div>
+  <div class="rule-item"><div class="rule-num">9</div><div class="rule-text"><strong>Search orders by number on CD — not by name.</strong> Use the Shopify # when looking up or referencing orders with ChinaDivision. Names are not reliable. See the SKUs &amp; Fulfillment tab.</div></div>
+  <div class="rule-item"><div class="rule-num">10</div><div class="rule-text"><strong>Don't reply to automated alerts.</strong> WebBee and ChinaDivision automated notifications are for Karel to action — they are not customer emails.</div></div>
+  <div class="escalation-box">
+    <h3>Escalate to Karel immediately when:</h3>
+    <ul class="step-list">
+      <li>Customer mentions chargeback, dispute, or "contacting my bank"</li>
+      <li>Package claimed stolen (not just delayed)</li>
+      <li>Customer completed Hive — Karel must process the order manually</li>
+      <li>Customer refuses to pay shipping on a resend and pushes for a free replacement</li>
+      <li>You can't find the order anywhere (Shopify, Hive, or ChinaDivision)</li>
+      <li>A SKU shows as out of stock when a customer needs it</li>
+      <li>Customer has replied 3+ times and the issue still isn't resolved</li>
+      <li>Anything that feels off or outside these scenarios</li>
+    </ul>
+  </div>
+</div>
+
+</main>
+
+<!-- LOGINS -->
+<div class="section" id="tab-logins">
+
+  <div class="ops-section">
+    <div class="ops-heading">Shared login</div>
+    <p class="ops-sub">One email and password is used across all platforms below. Keep this confidential — do not share outside the team.</p>
+    <div class="ops-card" style="display:flex;gap:2rem;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;">Email</div>
+        <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600;color:var(--text);">paybackcardgame@gmail.com</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;">Password</div>
+        <div style="font-family:'Courier New',monospace;font-size:14px;font-weight:600;color:var(--text);">5Greatguys!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">Kickstarter</div>
+    <p class="ops-sub">Two things to check: the message inbox for direct backer messages, and comments on campaign updates once a week.</p>
+    <div class="ops-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:10px;">
+        <div>
+          <div class="ops-card-title">Message inbox</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Check daily for backer questions and order issues.</div>
+        </div>
+        <a href="https://www.kickstarter.com/projects/karelpsota/payback/messages/inbox" target="_blank" style="display:inline-block;font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;background:var(--text);color:#fff;text-decoration:none;white-space:nowrap;flex-shrink:0;">Open inbox &rarr;</a>
+      </div>
+      <div style="border-top:1px solid var(--border);padding-top:10px;">
+        <div style="font-size:12px;color:var(--amber);background:var(--amber-light);padding:7px 10px;border-radius:8px;border-left:3px solid #e0a040;line-height:1.5;">
+          <strong style="color:var(--amber);">Weekly task:</strong> Also check the <strong>Comments</strong> tab on campaign updates for backer questions. Do this once a week — backers sometimes post order issues there instead of messaging directly.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">Hive Interactive — Pledge Manager</div>
+    <p class="ops-sub">This is where all Kickstarter backer orders live. Use it to find what a backer ordered, whether they paid for shipping, and their tracking code to cross-reference in ChinaDivision.</p>
+    <div class="ops-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:12px;">
+        <div>
+          <div class="ops-card-title">Hive login</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Use shared email and password above.</div>
+        </div>
+        <a href="https://www.hiveinteractive.net/login" target="_blank" style="display:inline-block;font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;background:var(--text);color:#fff;text-decoration:none;white-space:nowrap;flex-shrink:0;">Open Hive &rarr;</a>
+      </div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;border-top:1px solid var(--border);padding-top:10px;">
+        <strong style="color:var(--text);display:block;margin-bottom:4px;">What you can do here:</strong>
+        Look up a backer by name or email &rarr; see exactly what they ordered &rarr; confirm whether they paid for shipping &rarr; copy their tracking code &rarr; paste it into ChinaDivision to find the shipment status.
+      </div>
+    </div>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">Facebook Business — Message inbox</div>
+    <p class="ops-sub">Some customers send order questions through Facebook. Check this inbox for any messages related to orders or shipping.</p>
+    <div class="ops-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;">
+        <div>
+          <div class="ops-card-title">FB Business inbox</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Check regularly alongside the email inbox.</div>
+        </div>
+        <a href="https://business.facebook.com/latest/inbox/all/?asset_id=515781911612818&business_id=1296444544695371&nav_ref=manage_page_ap_plus_inbox_message_button" target="_blank" style="display:inline-block;font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;background:var(--text);color:#fff;text-decoration:none;white-space:nowrap;flex-shrink:0;">Open inbox &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="ops-section">
+    <div class="ops-heading">ChinaDivision — Shipping hub</div>
+    <p class="ops-sub">This is where all international shipments are managed. Use it to look up order status, check inventory levels, and find tracking numbers. Account ID: <strong>14490</strong>.</p>
+    <div class="ops-card">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:12px;">
+        <div>
+          <div class="ops-card-title">ChinaDivision user center</div>
+          <div style="font-size:13px;color:var(--text2);margin-top:2px;">Use shared email and password above. Account ID: 14490.</div>
+        </div>
+        <a href="https://ucenter.chinadivision.com/login?platform_type=1" target="_blank" style="display:inline-block;font-size:12px;font-weight:500;padding:6px 14px;border-radius:20px;background:var(--text);color:#fff;text-decoration:none;white-space:nowrap;flex-shrink:0;">Open CD &rarr;</a>
+      </div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;border-top:1px solid var(--border);padding-top:10px;">
+        <strong style="color:var(--text);display:block;margin-bottom:4px;">What you can do here:</strong>
+        Find orders by Shopify # &rarr; check shipment and tracking status &rarr; check live inventory per SKU &rarr; coordinate address corrections or resends with the team (Sunny, Nicole, Neil). See the SKUs &amp; Fulfillment tab for full instructions.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">Payback Card Game &middot; Great Guy Games, LLC &middot; Internal document &middot; Last updated April 2026</footer>
+
+<script>
+function switchTab(id,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');el.classList.add('active');}
+function toggle(head){const body=head.parentElement.querySelector('.sc-body');const chev=head.querySelector('.sc-chevron');const isOpen=body.classList.contains('open');document.querySelectorAll('.sc-body.open').forEach(b=>b.classList.remove('open'));document.querySelectorAll('.sc-chevron.open').forEach(c=>c.classList.remove('open'));if(!isOpen){body.classList.add('open');chev.classList.add('open');}}
+</script>
+</body>
+</html>
