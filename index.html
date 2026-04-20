@@ -116,6 +116,33 @@
   .ops-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.25rem; box-shadow: var(--shadow-sm); margin-top: 1rem; }
   .ops-card-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
   .footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--text3); border-top: 1px solid var(--border); margin-top: 2rem; }
+  /* TIME TRACKING */
+  .tt-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+  .tt-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1rem 1.25rem; box-shadow: var(--shadow-sm); }
+  .tt-stat-label { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 6px; }
+  .tt-stat-val { font-family: 'DM Serif Display', serif; font-size: 1.6rem; font-weight: 400; color: var(--text); line-height: 1.1; }
+  .tt-stat.accent .tt-stat-val { color: var(--accent); }
+  .tt-stat.green .tt-stat-val { color: var(--green); }
+  .tt-week { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); margin-bottom: 12px; box-shadow: var(--shadow-sm); overflow: hidden; }
+  .tt-week-head { display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 1.25rem; gap: 12px; flex-wrap: wrap; }
+  .tt-week-title { font-size: 13px; font-weight: 500; color: var(--text); }
+  .tt-week-total { font-size: 13px; font-weight: 600; color: var(--accent); background: var(--accent-light); padding: 3px 10px; border-radius: 20px; }
+  .tt-week-total.zero { color: var(--text3); background: var(--surface2); }
+  .tt-week table { font-size: 12.5px; }
+  .tt-week th, .tt-week td { padding: 8px 12px; }
+  .tt-week td.tt-day { color: var(--text); font-weight: 500; white-space: nowrap; }
+  .tt-week td.tt-empty { color: var(--text3); }
+  .tt-week td.tt-total { color: var(--accent); font-weight: 600; }
+  .tt-week td.tt-total.zero { color: var(--text3); font-weight: 400; }
+  .tt-loading { padding: 2rem; text-align: center; color: var(--text3); font-size: 13px; background: var(--surface); border: 1px dashed var(--border2); border-radius: var(--radius-lg); }
+  .tt-error { background: var(--accent-light); border: 1px solid var(--accent); color: var(--accent); padding: 1rem; border-radius: var(--radius); font-size: 13px; }
+  .tt-paypal-card { background: var(--blue-light); border: 1px solid #c9d8ec; border-radius: var(--radius-lg); padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .tt-paypal-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 4px; }
+  .tt-paypal-link { font-family: 'Courier New', monospace; font-size: 12px; color: var(--blue); word-break: break-all; }
+  .tt-paypal-btn { display: inline-block; font-size: 12px; font-weight: 500; padding: 6px 14px; border-radius: 20px; background: var(--blue); color: #fff; text-decoration: none; white-space: nowrap; flex-shrink: 0; }
+  .tt-refresh { margin-top: 1rem; text-align: right; font-size: 11px; color: var(--text3); }
+  .tt-refresh button { font-family: 'DM Sans', sans-serif; font-size: 11px; color: var(--text2); background: transparent; border: 1px solid var(--border2); padding: 4px 10px; border-radius: 20px; cursor: pointer; margin-left: 8px; }
+  .tt-refresh button:hover { background: var(--surface2); color: var(--text); }
 </style>
 </head>
 <body>
@@ -142,6 +169,7 @@
     <button class="tab-btn" onclick="switchTab('rules',this)">Rules &amp; escalation</button>
     <button class="tab-btn" onclick="switchTab('logins',this)">Links &amp; logins</button>
     <button class="tab-btn" onclick="switchTab('product',this)">Product overview</button>
+    <button class="tab-btn" onclick="switchTab('time',this)">Time tracking</button>
   </div>
 </nav>
 
@@ -782,13 +810,186 @@ Best,
 
 </div>
 
+<!-- TIME TRACKING -->
+<div class="section" id="tab-time">
+  <p class="section-intro">Live time tracking pulled directly from the Santi Time Tracker Google Sheet. Refreshes automatically each time you load this tab — no manual updates needed. To edit hours, open the source sheet directly.</p>
+
+  <div id="tt-content">
+    <div class="tt-loading">Loading time tracking data&hellip;</div>
+  </div>
+
+  <div class="tt-refresh">
+    <span id="tt-updated"></span>
+    <button onclick="loadTimeTracking()">Refresh now</button>
+    <a href="https://docs.google.com/spreadsheets/d/1_s2VRNLiYN0Ack6qu23RWhQpUHorKJtCx4bH7FH7Qx8/edit?gid=0" target="_blank" style="margin-left:8px;font-size:11px;color:var(--text2);text-decoration:none;border:1px solid var(--border2);padding:4px 10px;border-radius:20px;">Open source sheet &rarr;</a>
+  </div>
+</div>
+
 </main>
 
 <footer class="footer">Payback Card Game &middot; Great Guy Games, LLC &middot; Internal document &middot; Last updated April 2026</footer>
 
 <script>
-function switchTab(id,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));document.getElementById('tab-'+id).classList.add('active');el.classList.add('active');}
+function switchTab(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='time') loadTimeTracking();
+}
 function toggle(head){const body=head.parentElement.querySelector('.sc-body');const chev=head.querySelector('.sc-chevron');const isOpen=body.classList.contains('open');document.querySelectorAll('.sc-body.open').forEach(b=>b.classList.remove('open'));document.querySelectorAll('.sc-chevron.open').forEach(c=>c.classList.remove('open'));if(!isOpen){body.classList.add('open');chev.classList.add('open');}}
+
+/* TIME TRACKING — pulls from the public Google Sheet via gviz CSV endpoint */
+const TT_SHEET_ID = '1_s2VRNLiYN0Ack6qu23RWhQpUHorKJtCx4bH7FH7Qx8';
+const TT_GID = '0';
+
+function parseCSV(text){
+  const rows = [];
+  let row = [], cur = '', inQ = false;
+  for (let i = 0; i < text.length; i++){
+    const c = text[i];
+    if (inQ){
+      if (c === '"'){
+        if (text[i+1] === '"'){ cur += '"'; i++; }
+        else { inQ = false; }
+      } else { cur += c; }
+    } else {
+      if (c === '"'){ inQ = true; }
+      else if (c === ','){ row.push(cur); cur = ''; }
+      else if (c === '\n'){ row.push(cur); rows.push(row); row = []; cur = ''; }
+      else if (c === '\r'){ /* skip */ }
+      else { cur += c; }
+    }
+  }
+  if (cur.length || row.length){ row.push(cur); rows.push(row); }
+  return rows;
+}
+
+function escapeHtml(s){ return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function isZero(v){ return !v || v === '0:00' || v === '00:00' || v.trim() === ''; }
+
+function renderTimeTracking(rows){
+  let paypal = '';
+  for (const r of rows){
+    if (r[0] && r[0].toLowerCase().includes('paypal') && r[1]){ paypal = r[1]; break; }
+  }
+  let totalHours = '', rate = '', payment = '', currentWeekTotal = '';
+  for (let i = 0; i < rows.length; i++){
+    const r = rows[i];
+    if ((r[0] === 'Day' || r[0] === 'Day ') && r.some(c => c && c.includes('$'))){
+      for (const cell of r){
+        if (!cell) continue;
+        if (cell.includes('$') && !payment){ rate = cell; }
+        else if (cell.includes('$')){ payment = cell; }
+        else if (/^\d{1,2}:\d{2}$/.test(cell.trim()) && !currentWeekTotal){ currentWeekTotal = cell.trim(); }
+        else if (/^\d{1,2}:\d{2}$/.test(cell.trim())){ totalHours = cell.trim(); }
+      }
+      break;
+    }
+  }
+  if (!totalHours) totalHours = currentWeekTotal;
+
+  const weeks = [];
+  for (let i = 0; i < rows.length; i++){
+    const r = rows[i];
+    if (r[0] === 'Date' && r[1] && /\w+\s+\d+,\s+\d{4}/.test(r[1])){
+      const dates = r.slice(1, 6).filter(Boolean);
+      const dayRow   = rows[i+1] || [];
+      const timeIn   = rows[i+2] || [];
+      const lunchSt  = rows[i+3] || [];
+      const lunchEnd = rows[i+4] || [];
+      const timeOut  = rows[i+5] || [];
+      const totals   = rows[i+6] || [];
+      let weekTotal = '';
+      for (const c of dayRow){ if (c && /^\d{1,2}:\d{2}$/.test(c.trim())){ weekTotal = c.trim(); break; } }
+      weeks.push({ dates, timeIn, lunchSt, lunchEnd, timeOut, totals, weekTotal });
+    }
+  }
+
+  const stats = `
+    <div class="tt-summary">
+      <div class="tt-stat accent">
+        <div class="tt-stat-label">This week</div>
+        <div class="tt-stat-val">${escapeHtml(currentWeekTotal || '0:00')}</div>
+      </div>
+      <div class="tt-stat">
+        <div class="tt-stat-label">Total hours worked</div>
+        <div class="tt-stat-val">${escapeHtml(totalHours || '0:00')}</div>
+      </div>
+      <div class="tt-stat">
+        <div class="tt-stat-label">Hourly rate</div>
+        <div class="tt-stat-val">${escapeHtml(rate || '$10.00')}</div>
+      </div>
+      <div class="tt-stat green">
+        <div class="tt-stat-label">Payment due</div>
+        <div class="tt-stat-val">${escapeHtml(payment || '$0.00')}</div>
+      </div>
+    </div>
+  `;
+
+  const paypalCard = paypal ? `
+    <div class="tt-paypal-card">
+      <div>
+        <div class="tt-paypal-label">PayPal — pay Santi</div>
+        <div class="tt-paypal-link">${escapeHtml(paypal)}</div>
+      </div>
+      <a class="tt-paypal-btn" href="${escapeHtml(paypal)}" target="_blank">Open PayPal &rarr;</a>
+    </div>
+  ` : '';
+
+  const dayNames = ['Mon','Tue','Wed','Thu','Fri'];
+  const fmt = v => isZero(v) ? '<span class="tt-empty">&mdash;</span>' : escapeHtml(v.trim());
+
+  const weeksHtml = weeks.map((w, idx) => {
+    const isZeroWeek = isZero(w.weekTotal);
+    const range = w.dates.length ? `${w.dates[0]} &ndash; ${w.dates[w.dates.length-1]}` : `Week ${idx+1}`;
+    const rowsHtml = dayNames.map((dn, j) => `
+      <tr>
+        <td class="tt-day">${dn} <span style="color:var(--text3);font-weight:400;">${escapeHtml(w.dates[j] || '')}</span></td>
+        <td>${fmt(w.timeIn[j+1])}</td>
+        <td>${fmt(w.lunchSt[j+1])}</td>
+        <td>${fmt(w.lunchEnd[j+1])}</td>
+        <td>${fmt(w.timeOut[j+1])}</td>
+        <td class="tt-total ${isZero(w.totals[j+1]) ? 'zero' : ''}">${escapeHtml(w.totals[j+1] || '0:00')}</td>
+      </tr>
+    `).join('');
+    return `
+      <div class="tt-week">
+        <div class="tt-week-head">
+          <div class="tt-week-title">Week ${idx+1} &middot; ${range}</div>
+          <div class="tt-week-total ${isZeroWeek ? 'zero' : ''}">${escapeHtml(w.weekTotal || '0:00')} this week</div>
+        </div>
+        <div class="tbl-wrap" style="border-radius:0;border-left:none;border-right:none;border-bottom:none;box-shadow:none;margin-bottom:0;">
+          <table>
+            <thead><tr><th>Day</th><th>Time In</th><th>Lunch start</th><th>Lunch end</th><th>Time out</th><th>Hours</th></tr></thead>
+            <tbody>${rowsHtml}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('tt-content').innerHTML = stats + paypalCard + weeksHtml;
+  const now = new Date();
+  document.getElementById('tt-updated').textContent = `Last updated ${now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+}
+
+async function loadTimeTracking(){
+  const url = `https://docs.google.com/spreadsheets/d/${TT_SHEET_ID}/gviz/tq?tqx=out:csv&gid=${TT_GID}&_=${Date.now()}`;
+  const target = document.getElementById('tt-content');
+  if (!target) return;
+  target.innerHTML = '<div class="tt-loading">Loading time tracking data&hellip;</div>';
+  try {
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const csv = await res.text();
+    const rows = parseCSV(csv);
+    renderTimeTracking(rows);
+  } catch (err) {
+    target.innerHTML = `<div class="tt-error"><strong>Couldn't load the time tracker.</strong><br>The sheet may not be publicly viewable, or the network is unavailable. Make sure the sheet is shared as &ldquo;Anyone with the link &middot; Viewer&rdquo;.<br><br><span style="font-family:'Courier New',monospace;font-size:11px;opacity:0.7;">${escapeHtml(err.message)}</span></div>`;
+  }
+}
 </script>
 </body>
 </html>
