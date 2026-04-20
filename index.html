@@ -183,7 +183,6 @@
     <button class="tab-btn" onclick="switchTab('rules',this)">Rules &amp; escalation</button>
     <button class="tab-btn" onclick="switchTab('logins',this)">Links &amp; logins</button>
     <button class="tab-btn" onclick="switchTab('product',this)">Product overview</button>
-    <button class="tab-btn" onclick="switchTab('time',this)">Time tracking</button>
   </div>
 </nav>
 
@@ -853,8 +852,7 @@ function switchTab(id,el){
 }
 function goToTimeTracking(e){
   if(e) e.preventDefault();
-  const btn = document.querySelector('.tab-btn[onclick*="time"]');
-  switchTab('time', btn);
+  switchTab('time', null);
   const nav = document.querySelector('.tabs-nav');
   if(nav) nav.scrollIntoView({behavior:'smooth', block:'start'});
 }
