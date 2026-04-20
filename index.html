@@ -575,6 +575,28 @@ Best,
   </div>
 
   <div class="ops-section">
+    <div class="ops-heading">How to look up a Kickstarter order</div>
+    <p class="ops-sub">Kickstarter orders work differently from Shopify orders. They are <strong>organized by Hive</strong> (the pledge manager), and each backer gets a unique <strong>Hive ID</strong>. ChinaDivision references Kickstarter shipments by that Hive ID — not by Shopify #.</p>
+    <ol class="ops-steps">
+      <li>Log in to the <strong>Hive pledge manager</strong> at <code>hiveinteractive.net/login</code>. See the Links &amp; logins tab for credentials.</li>
+      <li>Search for the backer by <strong>name or email</strong>. Make sure to use the exact email they backed Kickstarter with — if it doesn't match, ask the customer which email they used to pledge.</li>
+      <li>Once you find the backer, copy their <strong>Hive ID</strong> (sometimes labeled "Backer ID" or "Pledge ID"). This is the key reference number for the rest of the lookup.</li>
+      <li>Confirm in Hive what they ordered, whether they paid for shipping, and whether their address has been finalized. If anything is missing, the order won't have moved to ChinaDivision yet.</li>
+      <li>Log in to the <strong>ChinaDivision user center</strong> at <code>chinadivision.com</code> (account ID: <code>14490</code>).</li>
+      <li>Search by <strong>Hive ID</strong> in CD's order list. Kickstarter shipments are uploaded as a batch and indexed by Hive ID, not Shopify #.</li>
+      <li>If still not found, email <strong>am2@chinadivision.com</strong> (CC dm9@chinadivision.com): <em>"Can you confirm shipment status for Hive ID [ID]? Account 14490."</em></li>
+    </ol>
+    <div class="ops-card">
+      <div class="ops-card-title">Quick decision tree</div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.7;">
+        <strong style="color:var(--text);">Is the order from Kickstarter?</strong> &rarr; Find the backer in Hive first, get their Hive ID, then search CD by Hive ID.<br>
+        <strong style="color:var(--text);">Is the order from the website (Shopify)?</strong> &rarr; Skip Hive entirely, use the Shopify # to search CD directly. See the section above.
+      </div>
+    </div>
+    <div class="callout" style="margin-top:1rem;">If a Kickstarter backer's order isn't in Hive at all, they likely never completed the pledge survey. Use the <strong>"Order not received / never arrived"</strong> scenario template to re-open their pledge and send a new Hive invite.</div>
+  </div>
+
+  <div class="ops-section">
     <div class="ops-heading">How to check inventory on ChinaDivision</div>
     <p class="ops-sub">Before promising any resend or telling a customer a product is available, check live CD inventory. Do not rely on memory — stock levels change frequently.</p>
     <ol class="ops-steps">
